@@ -191,7 +191,7 @@ directWriteLow(IO_REG_TYPE pin) {
 
 static inline __attribute__((always_inline)) void
 directWriteHigh(IO_REG_TYPE pin) {
-#if CONFIG_IDF_TARGET_ESP32C3 ||
+#if CONFIG_IDF_TARGET_ESP32C3 || CONFIG_IDF_TARGET_ESP32C6
   GPIO.out_w1ts.val = ((uint32_t)1 << pin);
 #else // plain ESP32
   if (pin < 32)
@@ -203,7 +203,7 @@ directWriteHigh(IO_REG_TYPE pin) {
 
 static inline __attribute__((always_inline)) void
 directModeInput(IO_REG_TYPE pin) {
-#if CONFIG_IDF_TARGET_ESP32C3 ||
+#if CONFIG_IDF_TARGET_ESP32C3 || CONFIG_IDF_TARGET_ESP32C6
   GPIO.enable_w1tc.val = ((uint32_t)1 << (pin));
 #else
   if (digitalPinIsValid(pin)) {
@@ -228,7 +228,7 @@ directModeInput(IO_REG_TYPE pin) {
 
 static inline __attribute__((always_inline)) void
 directModeOutput(IO_REG_TYPE pin) {
-#if CONFIG_IDF_TARGET_ESP32C3 ||
+#if CONFIG_IDF_TARGET_ESP32C3 || CONFIG_IDF_TARGET_ESP32C6
   GPIO.enable_w1ts.val = ((uint32_t)1 << (pin));
 #else
   if (digitalPinIsValid(pin) && pin <= 33) // pins above 33 can be only inputs
